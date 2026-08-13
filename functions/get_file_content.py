@@ -9,14 +9,17 @@ schema_get_file_content = {
         "parameters": {
             "type": "object",
             "properties": {
-                "directory": {
+                "file_path": {
                     "type": "string",
-                    "description": "Directory path to list files from, relative to the working directory (default is the working directory itself)",
+                    "description": "file_path is the relative path from the working directory to the file to open.",
                 },
             },
         },
     },
 }
+available_functions = [
+    schema_get_file_content
+]
 
 def get_file_content(working_directory: str, file_path: str) -> str:
     print(f"----\n - working: {working_directory}\n - file path: {file_path}")

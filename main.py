@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from prompts import system_prompt
 import prompts
 import json
-from functions.get_files_info import available_functions, get_files_info
+from call_function import available_functions
 
 load_dotenv()
 api_key = os.environ.get("OPENROUTER_API_KEY")

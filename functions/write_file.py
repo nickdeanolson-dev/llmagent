@@ -1,5 +1,27 @@
 import os
 
+schema_write_file = {
+    "type": "function",
+    "function": {
+        "name": "write_file",
+        "description": "Takes in a string and writes that string into a given file",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "file_path": {
+                    "type": "string",
+                    "description": "file_path is the relative path from the working directory to the file to open.",
+                },
+                "content": {
+                    "type": "str",
+                    "description": "content is a string to write into a file",
+                },
+            },
+        },
+    },
+}
+
+
 def write_file(working_directory: str, file_path: str, content: str) -> str:
     absolute_working_dir = os.path.abspath(working_directory)
     absolute_file_path = os.path.normpath(os.path.join(absolute_working_dir, file_path))

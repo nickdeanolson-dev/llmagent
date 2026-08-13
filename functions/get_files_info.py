@@ -17,9 +17,6 @@ schema_get_files_info = {
     },
 }
 
-available_functions = [
-    schema_get_files_info,
-]
 
 def get_files_info(working_directory: str, directory: str = ".") -> str:
     try:
