@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from prompts import system_prompt
 import prompts
 import json
-from call_function import available_functions
+from call_function import available_functions, call_function
 
 load_dotenv()
 api_key = os.environ.get("OPENROUTER_API_KEY")
@@ -40,7 +40,10 @@ def main():
     if response.choices[0].message.tool_calls:
         for tool_call in response.choices[0].message.tool_calls:
             function_args = json.loads(tool_call.function.arguments or "{}")
+            if args.verbose == True:
+                 function_args = {"verbose": True}
             print(f"Calling function: {tool_call.function.name}({function_args})")
+            result_message = call_function(tool_call, verbose=args.verbose)
     else:
             print (response.choices[0].message.content)
     
@@ -49,6 +52,7 @@ def main():
 
     if args.verbose == True:
         print(f"User prompt: {args.user_prompt}\nPrompt tokens: {response.usage.prompt_tokens}\nResponse tokens: {response.usage.completion_tokens}")
+        print(f"-> {result_message['content']}")
 
 if __name__ == "__main__":
     main()
