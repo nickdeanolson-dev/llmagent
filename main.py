@@ -35,17 +35,27 @@ def main():
     ]
 
 
-    response = client.chat.completions.create(model = "openrouter/free",messages = messages, temperature=0,tools=available_functions)
-    
-    if response.choices[0].message.tool_calls:
-        for tool_call in response.choices[0].message.tool_calls:
-            function_args = json.loads(tool_call.function.arguments or "{}")
-            if args.verbose == True:
-                 function_args = {"verbose": True}
-            print(f"Calling function: {tool_call.function.name}({function_args})")
-            result_message = call_function(tool_call, verbose=args.verbose)
-    else:
-            print (response.choices[0].message.content)
+    for x in range (5):
+        response = client.chat.completions.create(model = "openrouter/free",messages = messages, temperature=0,tools=available_functions)
+        message = response.choices[0].message
+        messages.append(message)
+        print(f"--- iteration {x}")
+        if response.choices[0].message.tool_calls:
+            for tool_call in response.choices[0].message.tool_calls:
+                function_args = json.loads(tool_call.function.arguments or "{}")
+                if args.verbose == True:
+                    function_args = {"verbose": True}
+                print(f"Calling function: {tool_call.function.name}({function_args})")
+                result_message = call_function(tool_call, verbose=args.verbose)
+                messages.append(result_message)
+        else:
+                print(f"Final Response:\n----------\n{response.choices[0].message.content}")
+                x = 100
+
+    if x == 6:
+        print("LLM could not resolve in time")
+        exit(1)
+
     
     if response.usage is None:
         raise RuntimeError ("Failed API call") 

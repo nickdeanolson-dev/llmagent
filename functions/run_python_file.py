@@ -30,7 +30,7 @@ schema_run_python_file = {
 def run_python_file(
     working_directory: str, file_path: str, args: list[str] | None = None
 ) -> str:
-    print(f"----\nworking_directory: {working_directory}\nfile_path: {file_path}\nargs: {args}")
+    #print(f"----\nworking_directory: {working_directory}\nfile_path: {file_path}\nargs: {args}")
     absolute_working_dir = os.path.abspath(working_directory)
     absolute_file_path = os.path.normpath(os.path.join(absolute_working_dir, file_path))
     absolute_file_directory = os.path.dirname(absolute_file_path)

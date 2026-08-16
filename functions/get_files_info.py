@@ -21,7 +21,7 @@ schema_get_files_info = {
 def get_files_info(working_directory: str, directory: str = ".") -> str:
     try:
         #print("--------")
-        print(f"----\n - working: {working_directory}\n - directory: {directory}")
+        #print(f"----\n - working: {working_directory}\n - directory: {directory}")
         #print(directory)
 
         file_description = ""
